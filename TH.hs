@@ -18,7 +18,7 @@ myFunction = do
     LangC
     "#include <stdio.h>\n\
     \void test( void ) {\n\
-    \  printf (\"clang version: %d\", __clang_major__);\n\
+    \  printf (\"clang version: %d\\n\", __clang_major__);\n\
     \}\n"
 
   pure $
