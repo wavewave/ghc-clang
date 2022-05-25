@@ -2,11 +2,12 @@ let
   pkgs = import <nixpkgs> {
     overlays = [
       (final: prev: {
-        #stdenv = prev.clangStdenv;
-        #buildPackages =
-        #  prev.buildPackages.override { stdenv = prev.clangStdenv; };
-        haskellPackages =
-          prev.haskell.packages.ghc8107.override { stdenv = prev.clangStdenv; };
+        haskellPackages = prev.haskell.packages.ghc8107.override {
+          ghc = final.buildPackages.haskell.compiler.ghc8107.override {
+            useLLVM = true;
+          };
+          stdenv = prev.clangStdenv;
+        };
       })
     ];
   };
