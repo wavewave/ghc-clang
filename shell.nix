@@ -7,7 +7,6 @@ let
           haskellPackages = prev.haskell.packages.ghc8107.override {
             ghc = final.buildPackages.haskell.compiler.ghc8107.override {
               useLLVM = true;
-              stdenv = myStdenv;
               llvmPackages = final.llvmPackages_12;
               targetPackages = prev.targetPackages.extend
                 (self: super: { stdenv = myStdenv; });
