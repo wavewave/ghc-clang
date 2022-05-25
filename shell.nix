@@ -2,12 +2,12 @@ let
   pkgs = import <nixpkgs> {
     overlays = [
       (final: prev:
-        let myStdenv = final.llvmPackages_12.stdenv;
+        let myStdenv = prev.llvmPackages_12.stdenv;
         in {
           haskellPackages = prev.haskell.packages.ghc8107.override {
-            ghc = final.buildPackages.haskell.compiler.ghc8107.override {
+            ghc = prev.buildPackages.haskell.compiler.ghc8107.override {
               useLLVM = true;
-              llvmPackages = final.llvmPackages_12;
+              llvmPackages = prev.llvmPackages_12;
               targetPackages = prev.targetPackages.extend
                 (self: super: { stdenv = myStdenv; });
               pkgsHostTarget = prev.pkgsHostTarget.extend (self: super: {
