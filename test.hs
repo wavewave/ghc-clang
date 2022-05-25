@@ -5,11 +5,10 @@ module Main where
 
 import TH
 
-foreign import ccall "test" c_test :: IO ()
+$(myFunction)
 
 main :: IO ()
 main = do
-  pure $(myFunction)
   putStrLn
-    "hello world"
+    "C code insertion using addForeignSource"
   c_test

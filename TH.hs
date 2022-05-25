@@ -1,13 +1,18 @@
 module TH where
 
 import Language.Haskell.TH.Syntax
-  ( Exp (TupE),
+  ( Callconv (..),
+    Dec (ForeignD),
+    Foreign (ImportF),
     ForeignSrcLang (LangC),
     Q,
+    Safety (Safe),
+    Type (..),
     addForeignSource,
+    mkName,
   )
 
-myFunction :: Q Exp
+myFunction :: Q [Dec]
 myFunction = do
   addForeignSource
     LangC
@@ -15,4 +20,8 @@ myFunction = do
     \void test( void ) {\n\
     \  printf (\"clang version: %d\", __clang_major__);\n\
     \}\n"
-  pure (TupE [])
+
+  pure $
+    [ ForeignD $
+        ImportF CCall Safe "test" (mkName "c_test") (AppT (ConT (mkName "IO")) (TupleT 0))
+    ]
