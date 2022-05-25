@@ -13,6 +13,6 @@ myFunction = do
     LangC
     "#include <stdio.h>\n\
     \void test( void ) {\n\
-    \  printf (\"xyz\");\n\
+    \  printf (\"clang version: %d\", __clang_major__);\n\
     \}\n"
-  return (TupE [])
+  pure (TupE [])
